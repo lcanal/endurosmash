@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   root "pages#index"
 
-  get 'dashboard', :to => 'dashboard#index'
+  get 'welcome', :to => 'pages#welcome'
+
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do
     get 'sign_in', :to => 'devise/sessions#new', :as => :new_user_session
@@ -9,5 +10,4 @@ Rails.application.routes.draw do
   end
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
 end
