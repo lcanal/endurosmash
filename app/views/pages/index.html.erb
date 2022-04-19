@@ -3,5 +3,19 @@
 </div>
 <br />
 <div>
+
 <%= button_to "Sign in with Strava", user_strava_omniauth_authorize_path, data: { turbo: false } %> 
 </div>
+
+
+<br /><br /><br />
+<% if current_user %>
+HI!!
+  <h3><%= current_user.name %></h3>
+  <h3><%= current_user.email %></h3>
+  <%= image_tag(current_user.image) unless current_user.image.nil? %>
+<% end %>
+
+
+<br /><br /><br />
+<%= link_to "Sign out", destroy_user_session_path %>

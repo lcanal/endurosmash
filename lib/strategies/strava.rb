@@ -10,7 +10,7 @@ module OmniAuth
         :authorize_url => 'https://www.strava.com/oauth/authorize',
         :token_url => 'https://www.strava.com/oauth/token'
       }
-      option :scope, 'read'
+      option :scope, ENV['STRAVA_SCOPE']
 
       def authorize_params
         super.tap do |params|
