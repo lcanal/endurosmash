@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "pages#index"
 
   get 'welcome', :to => 'pages#welcome'
+  post 'activities', :to => 'pages#activities'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   devise_scope :user do
