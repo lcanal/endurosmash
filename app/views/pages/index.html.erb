@@ -47,16 +47,16 @@
           <div class="p-6">
             <div class="flex justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
               <!-- Your content -->
-              <%= form.submit "Lookup", class: "btn-primary" %>
               <div>
+              <%= form.submit "Lookup", class: "btn-primary" %>
               <div class="flow-root mt-6">
                 <ul role="list" class="-my-5 divide-y divide-gray-200">
                 <% @activities.each do |activity| %>
                   <%= render 'activity', activity: activity %>
+                <% end %>
                 </ul>
               </div>
-              </div>
-              <% end %>
+            </div>
             </div>
           </div>
         </div>
