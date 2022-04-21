@@ -1,10 +1,10 @@
 class PagesController < ApplicationController
 include PagesHelper
     def index
-        if !user_signed_in?
-            redirect_to welcome_path
-            return
-        end
+      unless user_signed_in?
+        redirect_to welcome_path
+        return
+      end
         @activities = []
     end
 
@@ -12,9 +12,10 @@ include PagesHelper
       params[:dates] = { :to => "", :from=> ""} if params[:dates].nil?  #Coming straight into the page
       after  = params[:dates][:from].empty? ? Time.now - 30.days : Time.parse(params[:dates][:from])
       before = params[:dates][:to].empty?   ? Time.now : Time.parse(params[:dates][:to])
-      @activities = get_all_activities(after,before)
 
-      ## TODO: Put in a routine that actuall refreshes your token.
+      @activities = get_all_activities(after,before)
+      zone1 = get_activity_zone(@activities.first)
+      ## TODO: Put in a routine that actual refreshes your token.
       if @activities.nil?
         redirect_to destroy_user_session_path
         return

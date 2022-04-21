@@ -20,4 +20,22 @@ module PagesHelper
       end
     end
   end
+
+  def get_activity_zone(activity)
+    client = Strava::Api::Client.new(access_token: session[:access_token])
+    zones = client.activity_zones(activity.id)
+    zones.each do |zone|
+      if zone.type == "pace"
+        return get_pace_zones(zone)
+      end
+    end
+  end
+
+  def get_pace_zones(pace_zone_range)
+    pace_distribution = []
+    pace_zone_range.each do |pace_zone|
+      pace_distribution << pace_zone
+    end
+    pace_distribution
+  end
 end
