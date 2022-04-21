@@ -53,16 +53,25 @@
     <!-- Right column -->
     <div class="grid grid-cols-1 gap-4 lg:col-span-2">
       <section aria-labelledby="section-2-title">
+        <h2 class="sr-only" id="section-2-title">Your Weekly Mileage</h2>
+        <div class="rounded-lg bg-white shadow">
+          <div class="p-6">
+            <div class="justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+              <!-- Each week is:
+              <% @week_mileage.each do |w| %>
+                Week: <%= w %> miles
+              <% end %> -->
+            </div>
+          </div>
+        </div>
+      </section>
+      <section aria-labelledby="section-2-title">
         <h2 class="sr-only" id="section-2-title">Your Activities</h2>
         <div class="rounded-lg bg-white shadow">
           <div class="p-6">
             <div class="justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
               <!-- Your content -->
               <div class="flow-root mt-6">
-                  Each week is:
-                  <% @week_mileage.each do |w| %>
-                    Week: <%= w %> miles
-                  <% end %>
                 <%= render 'activities' %>
               </div>
             </div>

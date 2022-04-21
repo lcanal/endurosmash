@@ -16,7 +16,7 @@ module PagesHelper
       print(e.headers)
       if e.headers["status"] == "401 Unauthorized"
         print("\n\nRedirecting stale token...\n\n")
-        redirect_to destroy_user_session_path  ## TODO: Put in a routine that actuall refreshes your token.
+        return nil
       end
     end
   end
