@@ -59,6 +59,10 @@
             <div class="justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
               <!-- Your content -->
               <div class="flow-root mt-6">
+                  Each week is:
+                  <% @week_mileage.each do |w| %>
+                    Week: <%= w %> miles
+                  <% end %>
                 <%= render 'activities' %>
               </div>
             </div>
