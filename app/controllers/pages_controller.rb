@@ -28,8 +28,9 @@ include PagesHelper
 
     private
     def weekly_counter(activities,start_from)
-      week_mileage = []
+      week_mileage = {}
       next_week = start_from + 7.days
+      key_week  = start_from
       sum = 0.0
       activities.reverse_each.with_index do |activity,index|
         if activity.start_date <= next_week
@@ -37,12 +38,13 @@ include PagesHelper
           sum += activity.distance_in_miles
           if index == activities.length-1
             print("hit end of array")
-            week_mileage << sum
+            week_mileage[key_week.to_date] = sum
           end
         else
           print("Hit end of a week sum")
-          week_mileage << sum
+          week_mileage[key_week.to_date] = sum
           sum = 0.0
+          key_week = next_week
           next_week += 7.days
         end
       end

@@ -54,13 +54,11 @@
     <div class="grid grid-cols-1 gap-4 lg:col-span-2">
       <section aria-labelledby="section-2-title">
         <h2 class="sr-only" id="section-2-title">Your Weekly Mileage</h2>
-        <div class="rounded-lg bg-white shadow">
+        <div class="rounded-lg bg-white shadow h-90">
           <div class="p-6">
             <div class="justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-              <!-- Each week is:
-              <% @week_mileage.each do |w| %>
-                Week: <%= w %> miles
-              <% end %> -->
+              <!-- <%= line_chart(@week_mileage) %> -->
+              <%= column_chart @week_mileage %>
             </div>
           </div>
         </div>
