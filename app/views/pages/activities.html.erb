@@ -57,8 +57,7 @@
         <div class="rounded-lg bg-white shadow h-90">
           <div class="p-6">
             <div class="justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-              <!-- <%= line_chart(@week_mileage) %> -->
-              <%= column_chart @week_mileage %>
+              <%= column_chart @week_mileage, xtitle: "Period of", ytitle: "Miles", label: "Miles for the period", round: 2, empty: "No data" , loading: "Loading..." %>
             </div>
           </div>
         </div>

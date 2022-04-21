@@ -20,9 +20,12 @@
         <h2 class="sr-only" id="section-1-title">Section title</h2>
         <div class="rounded-lg bg-white overflow-hidden shadow">
             <div class="p-6">
-                <div class="flex justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+                <div class="flex justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
                     <div class="relative">
                         <%= form.submit "Lookup", class: "btn-primary" %>
+                    </div>
+                    <div class="relative">
+                        <%= link_to "Signout" , destroy_user_session_path, class: "btn-primary" %>
                     </div>
                 </div>
             </div>
@@ -69,4 +72,3 @@
   </div>
   <% end %>
 </div>
-<%= link_to "Signout" , destroy_user_session_path %>
