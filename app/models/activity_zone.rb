@@ -1,2 +1,0 @@
-class ActivityZone < ApplicationRecord
-end

@@ -24,12 +24,8 @@ module PagesHelper
   def get_activity_zones(activities)
     pace_zones = []
     begin
-      activities_ids = activities.map { |a| a.id }
-      missing_ids = find_missing_ids(activities_ids)
-      ActivityZone.where
       activities.each do |activity|
-        # ActivityZone.where
-        # client = Strava::Api::Client.new(access_token: session[:access_token])
+        client = Strava::Api::Client.new(access_token: session[:access_token])
         zones = client.activity_zones(activity.id)
         zones.each do |zone|
           if (zone.include? 'type') && (zone.type == "pace")
@@ -47,10 +43,9 @@ module PagesHelper
     pace_zones
   end
 
-  def find_missing_ids(missing_ids)
-    found = ActivityZone.where("sid in (?)", missing_ids.join('",'))
+  def find_missing_ids(ids_to_match)
+    found = ActivityZone.where("sid in (?)", ids_to_match.join('",'))
     print("I found #{found}")
-    ActivityZone.where
   end
 
   def get_distribution_buckets(distribution_buckets)
