@@ -18,5 +18,9 @@ module Endurosmash
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    Strava::OAuth.configure do |config|
+      config.client_id = ENV['STRAVA_CLIENT_ID']
+      config.client_secret = ENV['STRAVA_CLIENT_SECRET']
+    end
   end
 end

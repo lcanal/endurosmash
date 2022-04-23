@@ -1,0 +1,79 @@
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8 mt-5">
+<%= form_with url: "/activities", :html => { "data-turbo": false } do |form| %>
+  <h1 class="sr-only">Activities</h1>
+  <!-- Main 3 column grid -->
+  <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
+    <!-- Left column -->
+    <div class="grid grid-cols-1 gap-4">
+      <section aria-labelledby="section-1-title" class="hidden sm:block">
+        <h2 class="sr-only" id="section-1-title">Profile Section</h2>
+        <div class="rounded-lg bg-white overflow-hidden shadow">
+          <div class="p-6">
+            <div class="flex justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+                <!-- <%= link_to "Sign out", destroy_user_session_path, class: "inline-block" %> -->
+                <%= image_tag(current_user.image, class: "inline-block h-28 w-28 rounded-md") unless current_user.image.nil? %>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section aria-labelledby="section-1-title">
+        <h2 class="sr-only" id="section-1-title">Button Controls</h2>
+        <div class="rounded-lg bg-white overflow-hidden shadow">
+            <div class="p-6">
+                <div class="flex justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+                    <div class="relative">
+                        <%= form.submit "Lookup", class: "btn-primary" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+      <section aria-labelledby="section-1-title">
+        <h2 class="sr-only" id="section-1-title">Date Controls</h2>
+        <div class="rounded-lg bg-white overflow-hidden shadow">
+          <div class="p-6">
+            <div class="flex justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+                <div class="xl:flex xl:justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="mx-2 my-2">
+                        <h3>From date</h3>
+                        <input type="date" min=<%= @mindate %> max=<%= @maxdate %> name="dates[from]" />
+                    </div>
+                    <div class="mx-2 my-2">
+                        <h3>To date</h3>
+                        <input type="date" min=<%= @mindate %> max=<%= @maxdate %> name="dates[to]" />
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- end Left col -->
+
+    <!-- Right column -->
+    <div class="grid grid-cols-1 gap-4 lg:col-span-2">
+      <section aria-labelledby="section-2-title">
+        <h2 class="sr-only" id="section-2-title">Your Activities</h2>
+        <div class="rounded-lg bg-white shadow">
+          <div class="p-6">
+            <div class="justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+              <!-- Your content -->
+              <div class="text-center">
+                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <p class="mt-1 text-sm text-gray-500">Get started by selecting a date range of your activities.</p>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<!-- <div class="relative h-96 min-h-full">
+<%= link_to "Signout" , destroy_user_session_path, class: "btn-primary absolute bottom-0 left-0 h-16 w-16" %>
+</div> -->

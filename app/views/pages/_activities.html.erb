@@ -1,0 +1,19 @@
+<ul role="list" class="-my-5 divide-y divide-gray-200">
+    <% @activities.each do |activity| %>
+        <li class="py-4">
+            <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0">
+                    <%= activity.type_emoji %>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 truncate"><%= activity.name %></p>
+                    <p class="text-sm text-gray-500 truncate"><%= activity.start_date.to_date %></p>
+                    <p class="text-sm text-gray-500 truncate">Distance: <%= activity.distance_in_miles.round(2) %> miles</p>
+                </div>
+                <div>
+                    <%= link_to "View", activity.strava_url, target: "_blank", class: "inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50"  %>
+                </div>
+            </div>
+        </li>
+    <% end %>
+</ul>
