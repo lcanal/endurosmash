@@ -14,14 +14,14 @@ include PagesHelper
       before = params[:dates][:to].empty?   ? Time.now : Time.parse(params[:dates][:to])
 
       @activities = get_all_activities(after,before)
-      zone1 = get_activity_zone(@activities.first)
-      ## TODO: Put in a routine that actual refreshes your token.
       if @activities.nil?
         redirect_to destroy_user_session_path
         return
       end
 
-      @week_mileage = weekly_counter(@activities,after)
+      @week_mileage       = weekly_counter(@activities,after)
+      zones               = get_activity_zones(@activities)
+      @week_pace_zones    = time_spent_in_pace_zones(zones)
     end
 
     def welcome
@@ -30,7 +30,7 @@ include PagesHelper
     private
     def weekly_counter(activities,start_from)
       week_mileage = {}
-      next_week = start_from + 7.days
+      next_week = start_from + 7.days       # May want to make this an option
       key_week  = start_from
       sum = 0.0
       activities.reverse_each.with_index do |activity,index|
@@ -48,4 +48,17 @@ include PagesHelper
       end
       return week_mileage
     end
+
+    def time_spent_in_pace_zones(pace_zones)
+      pace_zone_sums = { "Zone 1" => 0, "Zone 2" => 0, "Zone 3" => 0, "Zone 4" => 0, "Zone 5" => 0}
+      pace_zones.each do |z|
+        pace_zone_sums['Zone 1'] += z['z1'].time
+        pace_zone_sums['Zone 2'] += z['z2'].time
+        pace_zone_sums['Zone 3'] += z['z3'].time
+        pace_zone_sums['Zone 4'] += z['z4'].time
+        pace_zone_sums['Zone 5'] += z['z5'].time
+      end
+      return pace_zone_sums
+    end
+
 end

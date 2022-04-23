@@ -6,7 +6,7 @@
     <!-- Left column -->
     <div class="grid grid-cols-1 gap-4">
       <section aria-labelledby="section-1-title" class="hidden sm:block">
-        <h2 class="sr-only" id="section-1-title">Section title</h2>
+        <h2 class="sr-only" id="section-1-title">Profile</h2>
         <div class="rounded-lg bg-white overflow-hidden shadow">
           <div class="p-6">
             <div class="flex justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
@@ -17,7 +17,7 @@
         </div>
       </section>
       <section aria-labelledby="section-1-title">
-        <h2 class="sr-only" id="section-1-title">Section title</h2>
+        <h2 class="sr-only" id="section-1-title">Button Controls</h2>
         <div class="rounded-lg bg-white overflow-hidden shadow">
             <div class="p-6">
                 <div class="flex justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
@@ -29,7 +29,7 @@
         </div>
       </section>
       <section aria-labelledby="section-1-title">
-        <h2 class="sr-only" id="section-1-title">Section title</h2>
+        <h2 class="sr-only" id="section-1-title">Date Controls</h2>
         <div class="rounded-lg bg-white overflow-hidden shadow">
           <div class="p-6">
             <div class="flex justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
@@ -57,17 +57,28 @@
         <div class="rounded-lg bg-white shadow h-90">
           <div class="p-6">
             <div class="justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-              <%= column_chart @week_mileage, xtitle: "Period of", ytitle: "Miles", label: "Miles for the period", round: 2, empty: "No data" , loading: "Loading..." %>
+              <%= column_chart @week_mileage, title: "Total Mileage Every 7 Days", xtitle: "Week of", ytitle: "Miles", label: "Miles for the period", round: 2, empty: "No data" , loading: "Loading...", download: true %>
             </div>
           </div>
         </div>
       </section>
       <section aria-labelledby="section-2-title">
-        <h2 class="sr-only" id="section-2-title">Your Activities</h2>
+      <h2 class="sr-only" id="section-2-title">Pace Distribution</h2>
+      <div class="rounded-lg bg-white shadow h-90">
+        <div class="p-6">
+          <div class="justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
+            <%= pie_chart @week_pace_zones, donut:true, title: "Pace Distribution", download: true  %>
+          </div>
+        </div>
+      </div>
+    </section>
+      <section aria-labelledby="section-2-title">
+        <h2 class="sr-only" id="section-2-title">Listed Activities</h2>
         <div class="rounded-lg bg-white shadow">
           <div class="p-6">
             <div class="justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-              <!-- Your content -->
+              <!-- Your content -->          
+              <h2 class="text-xl leading-6 text-center font-medium text-gray-900">Listed Activities</h2>
               <div class="flow-root mt-6">
                 <%= render 'activities' %>
               </div>
@@ -79,4 +90,4 @@
   </div>
   <% end %>
 </div>
-<%= link_to "Signout" , destroy_user_session_path %>
+<!-- <%= link_to "Signout" , destroy_user_session_path %> -->
