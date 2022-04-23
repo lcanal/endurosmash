@@ -23,16 +23,23 @@ module PagesHelper
   # TODO: Currently just returns pace zones, could also add HR
   def get_activity_zones(activities)
     pace_zones = []
+    saved_zones = current_user.activity_zones.select("aid")
     begin
       activities.each do |activity|
-        client = Strava::Api::Client.new(access_token: session[:access_token])
-        zones = client.activity_zones(activity.id)
-        zones.each do |zone|
-          if (zone.include? 'type') && (zone.type == "pace")
-            distribution_buckets = zone.distribution_buckets
-            pace_zones << get_distribution_buckets(distribution_buckets)
-          end
-        end
+        if !saved_zones.find_by_aid(activity.id).nil?
+          pace_zones << current_user.activity_zones.select("zone1,zone2,zone3,zone4,zone5,zone6").find_by_aid(activity.id)
+        else
+          client = Strava::Api::Client.new(access_token: session[:access_token])
+          zones = client.activity_zones(activity.id)
+          zones.each do |zone|
+            if (zone.include? 'type') && (zone.type == "pace")
+              distribution_buckets = zone.distribution_buckets
+              azs  = get_distribution_buckets(distribution_buckets)
+              pace_zones << azs
+              save_activity_zone(azs,activity.id,"pace")
+            end #endif
+          end #end zoneloop
+        end #end else
       end
     rescue Strava::Errors::Fault => e
       print(e.headers)
@@ -50,11 +57,26 @@ module PagesHelper
 
   def get_distribution_buckets(distribution_buckets)
     pace_distribution = {}
-    pace_distribution['z1'] = distribution_buckets[0]
-    pace_distribution['z2'] = distribution_buckets[1]
-    pace_distribution['z3'] = distribution_buckets[2]
-    pace_distribution['z4'] = distribution_buckets[3]
-    pace_distribution['z5'] = distribution_buckets[4]
+    pace_distribution['zone1'] = distribution_buckets[0].time
+    pace_distribution['zone2'] = distribution_buckets[1].time
+    pace_distribution['zone3'] = distribution_buckets[2].time
+    pace_distribution['zone4'] = distribution_buckets[3].time
+    pace_distribution['zone5'] = distribution_buckets[4].time
+    pace_distribution['zone6'] = distribution_buckets[5].time
     pace_distribution
+  end
+
+  def save_activity_zone(zones,activity_id,type)
+    az = ActivityZone.new
+    az.aid = activity_id.to_s
+    az.type = type
+    az.zone1 = zones['zone1']
+    az.zone2 = zones['zone2']
+    az.zone3 = zones['zone3']
+    az.zone4 = zones['zone4']
+    az.zone5 = zones['zone5']
+    az.zone6 = zones['zone6']
+    az.user  = current_user
+    az.save
   end
 end
