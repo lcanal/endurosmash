@@ -10,9 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_18_013423) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_23_033036) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activity_zones", force: :cascade do |t|
+    t.string "type"
+    t.string "sid"
+    t.integer "duration"
+    t.integer "activity"
+    t.integer "zone1"
+    t.integer "zone2"
+    t.integer "zone3"
+    t.integer "zone4"
+    t.integer "zone5"
+    t.integer "zone6"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["activity"], name: "index_activity_zones_on_activity", unique: true
+    t.index ["sid"], name: "index_activity_zones_on_sid", unique: true
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email"

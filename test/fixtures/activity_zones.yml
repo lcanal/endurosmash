@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  duration: 1
+  activity: 1
+  zone1: 1
+  zone2: 1
+  zone3: 1
+  zone4: 1
+  zone5: 1
+  zone6: 1
+  sid: MyString
+
+two:
+  type: 
+  duration: 1
+  activity: 1
+  zone1: 1
+  zone2: 1
+  zone3: 1
+  zone4: 1
+  zone5: 1
+  zone6: 1
+  sid: MyString
