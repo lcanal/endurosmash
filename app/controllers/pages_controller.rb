@@ -18,9 +18,9 @@ include PagesHelper
         redirect_to destroy_user_session_path
         return
       end
-
-      @week_mileage       = weekly_counter(@activities,after)
       zones               = get_activity_zones(@activities)
+      
+      @week_mileage       = weekly_counter(@activities,after)
       @week_pace_zones    = time_spent_in_pace_zones(zones)
     end
 
