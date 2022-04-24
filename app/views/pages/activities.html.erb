@@ -57,7 +57,7 @@
         <div class="rounded-lg bg-white shadow h-90">
           <div class="p-6">
             <div class="justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ">
-              <%= column_chart @week_mileage, title: "Total Mileage Every 7 Days", xtitle: "Week of", ytitle: "Miles", label: "Miles for the period", round: 2, empty: "No data" , loading: "Loading...", download: true %>
+              <%= column_chart @week_mileage, stacked:true, title: "Total Mileage Every 7 Days", xtitle: "Week of", ytitle: "Miles", label: "Miles for the period", round: 2, empty: "No data" , loading: "Loading...", download: true %>
             </div>
           </div>
         </div>
