@@ -18,9 +18,9 @@ include PagesHelper
         redirect_to destroy_user_session_path
         return
       end
-
-      @week_mileage       = weekly_counter(@activities,after)
       zones               = get_activity_zones(@activities)
+      
+      @week_mileage       = weekly_counter(@activities,after)
       @week_pace_zones    = time_spent_in_pace_zones(zones)
     end
 
@@ -50,13 +50,14 @@ include PagesHelper
     end
 
     def time_spent_in_pace_zones(pace_zones)
-      pace_zone_sums = { "Zone 1" => 0, "Zone 2" => 0, "Zone 3" => 0, "Zone 4" => 0, "Zone 5" => 0}
+      pace_zone_sums = { "Zone 1" => 0, "Zone 2" => 0, "Zone 3" => 0, "Zone 4" => 0, "Zone 5" => 0, "Zone 6" => 0}
       pace_zones.each do |z|
-        pace_zone_sums['Zone 1'] += z['z1'].time
-        pace_zone_sums['Zone 2'] += z['z2'].time
-        pace_zone_sums['Zone 3'] += z['z3'].time
-        pace_zone_sums['Zone 4'] += z['z4'].time
-        pace_zone_sums['Zone 5'] += z['z5'].time
+        pace_zone_sums['Zone 1'] += z['zone1']
+        pace_zone_sums['Zone 2'] += z['zone2']
+        pace_zone_sums['Zone 3'] += z['zone3']
+        pace_zone_sums['Zone 4'] += z['zone4']
+        pace_zone_sums['Zone 5'] += z['zone5']
+        pace_zone_sums['Zone 6'] += z['zone6']
       end
       return pace_zone_sums
     end
