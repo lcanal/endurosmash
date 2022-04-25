@@ -18,10 +18,12 @@ include PagesHelper
         redirect_to destroy_user_session_path
         return
       end
-      
-      zones               = get_activity_zones(@activities)
+
+      pace_zones          = get_activity_zones(@activities,"pace")
+      power_zones         = get_activity_zones(@activities,"power")
       @week_mileage       = weekly_counter(@activities,after)
-      @week_pace_zones    = time_spent_in_pace_zones(zones)
+      @week_pace_zones    = time_spent_in_pace_zones(pace_zones)
+      @week_power_zones   = time_spent_in_pace_zones(power_zones)
     end
 
     def welcome
@@ -32,6 +34,7 @@ include PagesHelper
       weekly_data = []
       weekly_data << {name: "Run", data: sum_by_type(activities,"Run",start_from)}
       weekly_data << {name: "Ride", data: sum_by_type(activities,"Ride",start_from)}
+      # weekly_data << {name: "Swim", data: sum_by_type(activities,"Swim",start_from)}
       weekly_data
     end
 

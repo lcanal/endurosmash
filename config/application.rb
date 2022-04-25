@@ -1,6 +1,8 @@
 require_relative "boot"
 
 require "rails/all"
+# require "logger"
+
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -22,5 +24,11 @@ module Endurosmash
       config.client_id = ENV['STRAVA_CLIENT_ID']
       config.client_secret = ENV['STRAVA_CLIENT_SECRET']
     end
+
+    # Strava::Web::Client.configure do |config|
+    #   logger = Logger.new(STDOUT)
+    #   config.user_agent = 'Strava Ruby Client/1.0'
+    #   config.logger = logger
+    # end
   end
 end
