@@ -21,26 +21,35 @@ module PagesHelper
   end
 
   # TODO: Currently just returns pace zones, could also add HR
-  def get_activity_zones(activities)
+  # TODO: Tweak performance by having less database travels
+  def get_activity_zones(activities,type)
     pace_zones = []
     saved_zones = current_user.activity_zones.select("aid")
+    activities.each do |activity|
+      if !saved_zones.find_by_aid(activity.id).nil?
+        pace_zones << current_user.activity_zones.select("zone1,zone2,zone3,zone4,zone5,zone6").find_by_aid(activity.id) 
+      else
+        zones = get_zone_activity_from_strava(activity,type)
+        pace_zones << zones[0] unless zones.empty?    
+      end 
+    end
+    pace_zones
+  end
+
+  def get_zone_activity_from_strava(activity,zone_type)
+    pace_zones = []
     begin
-      activities.each do |activity|
-        if !saved_zones.find_by_aid(activity.id).nil?
-          pace_zones << current_user.activity_zones.select("zone1,zone2,zone3,zone4,zone5,zone6").find_by_aid(activity.id)
-        else
-          client = Strava::Api::Client.new(access_token: session[:access_token])
-          zones = client.activity_zones(activity.id)
-          zones.each do |zone|
-            if (zone.include? 'type') && (zone.type == "pace")
-              distribution_buckets = zone.distribution_buckets
-              azs  = get_distribution_buckets(distribution_buckets)
-              pace_zones << azs
-              save_activity_zone(azs,activity.id,"pace")
-            end #endif
-          end #end zoneloop
-        end #end else
+      client = Strava::Api::Client.new(access_token: session[:access_token])
+      if activity.type == "Walk"
+        return {}
       end
+      zones = client.activity_zones(activity.id)
+      zones.each do |zone|
+        if (zone.include? 'type') && (zone.type == zone_type)
+          azs  = get_distribution_buckets(zone.distribution_buckets)
+          pace_zones << save_activity_zone(azs,activity.id,zone_type) unless azs.empty?
+        end #endif
+      end #end zoneloop
     rescue Strava::Errors::Fault => e
       print(e.headers)
       if e.headers["status"] == "401 Unauthorized"
@@ -48,11 +57,6 @@ module PagesHelper
       end
     end
     pace_zones
-  end
-
-  def find_missing_ids(ids_to_match)
-    found = ActivityZone.where("sid in (?)", ids_to_match.join('",'))
-    print("I found #{found}")
   end
 
   def get_distribution_buckets(distribution_buckets)
@@ -78,5 +82,6 @@ module PagesHelper
     az.zone6 = zones['zone6']
     az.user  = current_user
     az.save
+    az
   end
 end

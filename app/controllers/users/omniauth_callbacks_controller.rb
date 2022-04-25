@@ -12,7 +12,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     def failure
-        print "I failed..."
+        flash[:error] = "Error logging in #{request.env['omniauth.error']}"
         redirect_to root_path
     end
 end
