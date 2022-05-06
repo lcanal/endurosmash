@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  aid: MyString
+  type: 
+  zone1: 1
+  zone2: 1
+  zone3: 1
+  zone4: 1
+  zone5: 1
+  zone6: 1
+  user: one
+
+two:
+  aid: MyString
+  type: 
+  zone1: 1
+  zone2: 1
+  zone3: 1
+  zone4: 1
+  zone5: 1
+  zone6: 1
+  user: two
